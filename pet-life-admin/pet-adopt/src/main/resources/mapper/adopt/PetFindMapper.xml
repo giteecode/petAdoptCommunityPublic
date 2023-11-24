@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.PetFindMapper">
+    
+    <resultMap type="PetFind" id="PetFindResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="phone"    column="phone"    />
+        <result property="bread"    column="bread"    />
+        <result property="type"    column="type"    />
+        <result property="picPrefix"    column="pic_prefix"    />
+        <result property="pictures"    column="pictures"    />
+        <result property="sex"    column="sex"    />
+        <result property="age"    column="age"    />
+        <result property="city"    column="city"    />
+        <result property="address"    column="address"    />
+        <result property="content"    column="content"    />
+        <result property="openId"    column="open_id"    />
+        <result property="isFinish"    column="is_finish"    />
+        <result property="view"    column="view"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPetFindVo">
+        select id, title, nickname, phone, bread, type, pic_prefix, pictures, sex, age, city, address, content, open_id, is_finish, view, is_deleted, create_time, update_time from pet_find
+    </sql>
+
+    <select id="selectPetFindList" parameterType="PetFind" resultMap="PetFindResult">
+        <include refid="selectPetFindVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="bread != null  and bread != ''"> and bread like concat('%', #{bread}, '%')</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="picPrefix != null  and picPrefix != ''"> and pic_prefix = #{picPrefix}</if>
+            <if test="pictures != null  and pictures != ''"> and pictures = #{pictures}</if>
+            <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+            <if test="age != null  and age != ''"> and age = #{age}</if>
+            <if test="city != null  and city != ''"> and city like concat('%', #{city}, '%')</if>
+            <if test="address != null  and address != ''"> and address like concat('%', #{address}, '%')</if>
+            <if test="content != null  and content != ''"> and content like concat('%', #{content}, '%')</if>
+            <if test="openId != null  and openId != ''"> and open_id = #{openId}</if>
+            <if test="isFinish != null  and isFinish != ''"> and is_finish = #{isFinish}</if>
+            <if test="view != null "> and view = #{view}</if>
+        </where>
+    </select>
+    
+    <select id="selectPetFindById" parameterType="Long" resultMap="PetFindResult">
+        <include refid="selectPetFindVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPetFind" parameterType="PetFind" useGeneratedKeys="true" keyProperty="id">
+        insert into pet_find
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">title,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="bread != null">bread,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="picPrefix != null and picPrefix != ''">pic_prefix,</if>
+            <if test="pictures != null and pictures != ''">pictures,</if>
+            <if test="sex != null">sex,</if>
+            <if test="age != null">age,</if>
+            <if test="city != null and city != ''">city,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="openId != null and openId != ''">open_id,</if>
+            <if test="isFinish != null and isFinish != ''">is_finish,</if>
+            <if test="view != null">view,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="bread != null">#{bread},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="picPrefix != null and picPrefix != ''">#{picPrefix},</if>
+            <if test="pictures != null and pictures != ''">#{pictures},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="age != null">#{age},</if>
+            <if test="city != null and city != ''">#{city},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="openId != null and openId != ''">#{openId},</if>
+            <if test="isFinish != null and isFinish != ''">#{isFinish},</if>
+            <if test="view != null">#{view},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePetFind" parameterType="PetFind">
+        update pet_find
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="bread != null">bread = #{bread},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="picPrefix != null and picPrefix != ''">pic_prefix = #{picPrefix},</if>
+            <if test="pictures != null and pictures != ''">pictures = #{pictures},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="city != null and city != ''">city = #{city},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="openId != null and openId != ''">open_id = #{openId},</if>
+            <if test="isFinish != null and isFinish != ''">is_finish = #{isFinish},</if>
+            <if test="view != null">view = #{view},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePetFindById" parameterType="Long">
+        delete from pet_find where id = #{id}
+    </delete>
+
+    <delete id="deletePetFindByIds" parameterType="String">
+        delete from pet_find where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

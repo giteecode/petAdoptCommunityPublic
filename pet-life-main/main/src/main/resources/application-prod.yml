@@ -1,0 +1,42 @@
+server:
+  port: 9998
+
+spring:
+  application:
+    name: pet-life
+
+  # 数据库连接
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://xxxx:3306/pet_life?characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+
+  # redis 配置
+  redis:
+    host: 127.0.0.1
+    pool:
+      max-active: 300
+      max-idle: 300
+      max-wait: -1
+      min-idle: 0
+    port: 6379
+    timeout: 30000
+
+  # 修改spring匹配规则 兼容Swagger2
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+  # 设置文件上传大小
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+wechat:
+  # 微信小程序
+  applet:
+    app-id: xxxx
+    app-secret: xxxx
+    access-token-api-url: https://api.weixin.qq.com/sns/jscode2session

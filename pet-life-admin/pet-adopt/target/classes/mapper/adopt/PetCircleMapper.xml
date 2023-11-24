@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.PetCircleMapper">
+    
+    <resultMap type="PetCircle" id="PetCircleResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="content"    column="content"    />
+        <result property="pictures"    column="pictures"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPetCircleVo">
+        select id, user_id, content, pictures, is_deleted, create_time, update_time from pet_circle
+    </sql>
+
+    <select id="selectPetCircleList" parameterType="PetCircle" resultMap="PetCircleResult">
+        <include refid="selectPetCircleVo"/>
+        <where>  
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="content != null  and content != ''"> and content like concat('%', #{content}, '%')</if>
+            <if test="pictures != null  and pictures != ''"> and pictures = #{pictures}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="updateTime != null "> and update_time = #{updateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectPetCircleById" parameterType="Long" resultMap="PetCircleResult">
+        <include refid="selectPetCircleVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPetCircle" parameterType="PetCircle" useGeneratedKeys="true" keyProperty="id">
+        insert into pet_circle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="pictures != null and pictures != ''">pictures,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="pictures != null and pictures != ''">#{pictures},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePetCircle" parameterType="PetCircle">
+        update pet_circle
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="pictures != null and pictures != ''">pictures = #{pictures},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePetCircleById" parameterType="Long">
+        delete from pet_circle where id = #{id}
+    </delete>
+
+    <delete id="deletePetCircleByIds" parameterType="String">
+        delete from pet_circle where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

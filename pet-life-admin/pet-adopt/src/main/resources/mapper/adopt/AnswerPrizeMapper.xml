@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.AnswerPrizeMapper">
+    
+    <resultMap type="AnswerPrize" id="AnswerPrizeResult">
+        <result property="id"    column="id"    />
+        <result property="subject"    column="subject"    />
+        <result property="options"    column="options"    />
+        <result property="answer"    column="answer"    />
+        <result property="type"    column="type"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAnswerPrizeVo">
+        select id, subject, options, answer, type, is_deleted, create_time, update_time from answer_prize
+    </sql>
+
+    <select id="selectAnswerPrizeList" parameterType="AnswerPrize" resultMap="AnswerPrizeResult">
+        <include refid="selectAnswerPrizeVo"/>
+        <where>  
+            <if test="subject != null  and subject != ''"> and subject like concat('%', #{subject}, '%')</if>
+            <if test="options != null  and options != ''"> and options like concat('%', #{options}, '%')</if>
+            <if test="answer != null  and answer != ''"> and answer like concat('%', #{answer}, '%')</if>
+            <if test="type != null  and type != ''"> and type like concat('%', #{type}, '%')</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="params.beginUpdateTime != null and params.beginUpdateTime != '' and params.endUpdateTime != null and params.endUpdateTime != ''"> and update_time between #{params.beginUpdateTime} and #{params.endUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectAnswerPrizeById" parameterType="Long" resultMap="AnswerPrizeResult">
+        <include refid="selectAnswerPrizeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAnswerPrize" parameterType="AnswerPrize" useGeneratedKeys="true" keyProperty="id">
+        insert into answer_prize
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subject != null and subject != ''">subject,</if>
+            <if test="options != null and options != ''">options,</if>
+            <if test="answer != null and answer != ''">answer,</if>
+            <if test="type != null">type,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subject != null and subject != ''">#{subject},</if>
+            <if test="options != null and options != ''">#{options},</if>
+            <if test="answer != null and answer != ''">#{answer},</if>
+            <if test="type != null">#{type},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAnswerPrize" parameterType="AnswerPrize">
+        update answer_prize
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="subject != null and subject != ''">subject = #{subject},</if>
+            <if test="options != null and options != ''">options = #{options},</if>
+            <if test="answer != null and answer != ''">answer = #{answer},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAnswerPrizeById" parameterType="Long">
+        delete from answer_prize where id = #{id}
+    </delete>
+
+    <delete id="deleteAnswerPrizeByIds" parameterType="String">
+        delete from answer_prize where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

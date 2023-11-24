@@ -1,0 +1,318 @@
+{
+	// "permission": {
+	// 	"scope.userLocation": {
+	// 		"desc": "你的位置信息将用于小程序位置接口的效果展示"
+	// 	 }
+	// },
+	
+	"pages": [
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "汪来喵往"
+			}
+		},
+		{
+			"path": "pages/community/index",
+			"style": {
+				"navigationBarTitleText": "宠物社区"
+			}
+		},
+		{
+			"path": "pages/user/my",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/home/detail",
+			"style": {
+				"navigationBarTitleText": "宠物详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/find/index",
+			"style": {
+				"navigationBarTitleText": "寻宠"
+			}
+		},
+		{
+			"path": "pages/find/detail",
+			"style": {
+				"navigationBarTitleText": "寻宠详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/home/add",
+			"style": {
+				"navigationBarTitleText": "发布领养",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/find/add",
+			"style": {
+				"navigationBarTitleText": "发布寻宠",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/community/add",
+			"style": {
+				"navigationBarTitleText": "发布动态",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/community/detail",
+			"style": {
+				"navigationBarTitleText": "宠物圈详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/cyclopedia/index",
+			"style": {
+				"navigationBarTitleText": "宠物科普"
+			}
+		},
+		{
+			"path": "pages/cyclopedia/detail",
+			"style": {
+				"navigationBarTitleText": "科普详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/other/card",
+			"style": {
+				"navigationBarTitleText": "打卡签到",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/path/adoptPath",
+			"style": {
+				"navigationBarTitleText": "领养流程",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "个人主页",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/article/index",
+			"style": {
+				"navigationBarTitleText": "文章列表"
+			}
+		},
+		{
+			"path": "pages/article/detail",
+			"style": {
+				"navigationBarTitleText": "文章详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/author/index",
+			"style": {
+				"navigationBarTitleText": "作者想说",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/chat/index",
+			"style": {
+				"navigationBarTitleText": "消息列表"
+			}
+		},
+		{
+			"path": "pages/chat/detail",
+			"style": {
+				"navigationBarTitleText": "消息详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/user/follow",
+			"style": {
+				"navigationBarTitleText": "关注列表"
+			}
+		},
+		{
+			"path": "pages/user/login",
+			"style": {
+				"navigationBarTitleText": "用户登录",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/user/register",
+			"style": {
+				"navigationBarTitleText": "用户注册",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/other/answer",
+			"style": {
+				"navigationBarTitleText": "答题赢奖"
+			}
+		},
+		{
+			"path": "pages/other/answer-record",
+			"style": {
+				"navigationBarTitleText": "答题记录"
+			}
+		},
+		{
+			"path": "pages/user/collect",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
+			}
+		},
+		{
+			"path": "pages/map/index",
+			"style": {
+				"navigationBarTitleText": "导航",
+				"enablePullDownRefresh": false
+			}
+		}
+	    ,{
+            "path" : "pages/report/report",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "举报",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/realName/realName",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "实名认证",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/lingyangxieyi/lingyangxieyi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "领养协议",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/lingyang/lingyang",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的发布的领养",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/userinfo/userinfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "资料信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/myapprove/myapprove",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "领养审批",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/myapply/myapply",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的领养申请",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/myapprove/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "领养审批",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/myapply/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的领养申请",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"enablePullDownRefresh": true
+		
+	},
+	"tabBar": {
+	  "backgroundColor": "#ffffff",
+	  "color": "#000000",
+	  "selectedColor": "#ffaa00",
+	  "list": [
+		{
+			"pagePath": "pages/home/index",
+			"iconPath":"static/tabber/home.png",
+			"text": "领养",
+			"selectedIconPath":"static/tabber/home_selected.png"
+		},
+		{
+			"pagePath": "pages/find/index",
+			"iconPath":"static/tabber/find-pet.png",
+			"text": "寻宠",
+			"selectedIconPath":"static/tabber/find-pet_selected.png"
+		},
+	    {
+			"pagePath": "pages/community/index",
+			"iconPath":"static/tabber/circle.png",
+			"text": "宠物社区",
+			"selectedIconPath":"static/tabber/circle_selected.png"
+	    },
+	    {
+			"pagePath": "pages/user/my",
+			"iconPath":"static/tabber/my.png",
+			"text": "我的",
+			"selectedIconPath":"static/tabber/my_selected.png"
+	    }
+	  ]
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.PetCyclopediaMapper">
+    
+    <resultMap type="PetCyclopedia" id="PetCyclopediaResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="picture"    column="picture"    />
+        <result property="content"    column="content"    />
+        <result property="view"    column="view"    />
+        <result property="type"    column="type"    />
+        <result property="backgroundColor"    column="background_color"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPetCyclopediaVo">
+        select id, title, picture, content, view, type, background_color, is_deleted, create_time, update_time from pet_cyclopedia
+    </sql>
+
+    <select id="selectPetCyclopediaList" parameterType="PetCyclopedia" resultMap="PetCyclopediaResult">
+        <include refid="selectPetCyclopediaVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="picture != null  and picture != ''"> and picture = #{picture}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="view != null "> and view = #{view}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="backgroundColor != null  and backgroundColor != ''"> and background_color = #{backgroundColor}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="params.beginUpdateTime != null and params.beginUpdateTime != '' and params.endUpdateTime != null and params.endUpdateTime != ''"> and update_time between #{params.beginUpdateTime} and #{params.endUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectPetCyclopediaById" parameterType="Long" resultMap="PetCyclopediaResult">
+        <include refid="selectPetCyclopediaVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPetCyclopedia" parameterType="PetCyclopedia">
+        insert into pet_cyclopedia
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="picture != null">picture,</if>
+            <if test="content != null">content,</if>
+            <if test="view != null">view,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="backgroundColor != null">background_color,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="picture != null">#{picture},</if>
+            <if test="content != null">#{content},</if>
+            <if test="view != null">#{view},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="backgroundColor != null">#{backgroundColor},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePetCyclopedia" parameterType="PetCyclopedia">
+        update pet_cyclopedia
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="picture != null">picture = #{picture},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="view != null">view = #{view},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="backgroundColor != null">background_color = #{backgroundColor},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePetCyclopediaById" parameterType="Long">
+        delete from pet_cyclopedia where id = #{id}
+    </delete>
+
+    <delete id="deletePetCyclopediaByIds" parameterType="String">
+        delete from pet_cyclopedia where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

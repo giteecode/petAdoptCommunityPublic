@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.ArticleMapper">
+    
+    <resultMap type="Article" id="ArticleResult">
+        <result property="id"    column="id"    />
+        <result property="label"    column="label"    />
+        <result property="title"    column="title"    />
+        <result property="url"    column="url"    />
+        <result property="bgColor"    column="bg_color"    />
+        <result property="picture"    column="picture"    />
+        <result property="view"    column="view"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectArticleVo">
+        select id, label, title, url, bg_color, picture, view, is_deleted, create_time, update_time from article
+    </sql>
+
+    <select id="selectArticleList" parameterType="Article" resultMap="ArticleResult">
+        <include refid="selectArticleVo"/>
+        <where>  
+            <if test="label != null  and label != ''"> and label like concat('%', #{label}, '%')</if>
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="url != null  and url != ''"> and url like concat('%', #{url}, '%')</if>
+            <if test="bgColor != null  and bgColor != ''"> and bg_color = #{bgColor}</if>
+            <if test="picture != null  and picture != ''"> and picture = #{picture}</if>
+            <if test="view != null "> and view = #{view}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="params.beginUpdateTime != null and params.beginUpdateTime != '' and params.endUpdateTime != null and params.endUpdateTime != ''"> and update_time between #{params.beginUpdateTime} and #{params.endUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectArticleById" parameterType="Long" resultMap="ArticleResult">
+        <include refid="selectArticleVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="label != null and label != ''">label,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="url != null">url,</if>
+            <if test="bgColor != null">bg_color,</if>
+            <if test="picture != null and picture != ''">picture,</if>
+            <if test="view != null">view,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="label != null and label != ''">#{label},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="url != null">#{url},</if>
+            <if test="bgColor != null">#{bgColor},</if>
+            <if test="picture != null and picture != ''">#{picture},</if>
+            <if test="view != null">#{view},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateArticle" parameterType="Article">
+        update article
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="label != null and label != ''">label = #{label},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="bgColor != null">bg_color = #{bgColor},</if>
+            <if test="picture != null and picture != ''">picture = #{picture},</if>
+            <if test="view != null">view = #{view},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteArticleById" parameterType="Long">
+        delete from article where id = #{id}
+    </delete>
+
+    <delete id="deleteArticleByIds" parameterType="String">
+        delete from article where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,17 @@
+{
+  "devDependencies": {
+    "vue-jsonp": "^2.0.0"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "vue-resource": "^1.5.3"
+  },
+  "id": "ss-select-city",
+  "name": "城市选择",
+  "version": "1.0.1",
+  "description": "城市选择组件",
+  "keywords": [
+      "城市，地区"
+  ]
+}
+

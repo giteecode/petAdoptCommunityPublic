@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.ChatMapper">
+    
+    <resultMap type="Chat" id="ChatResult">
+        <result property="id"    column="id"    />
+        <result property="fromId"    column="from_id"    />
+        <result property="toId"    column="to_id"    />
+        <result property="content"    column="content"    />
+        <result property="isDone"    column="is_done"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectChatVo">
+        select id, from_id, to_id, content, is_done, is_deleted, create_time, update_time from chat
+    </sql>
+
+    <select id="selectChatList" parameterType="Chat" resultMap="ChatResult">
+        <include refid="selectChatVo"/>
+        <where>  
+            <if test="fromId != null  and fromId != ''"> and from_id = #{fromId}</if>
+            <if test="toId != null  and toId != ''"> and to_id = #{toId}</if>
+            <if test="content != null  and content != ''"> and content like concat('%', #{content}, '%')</if>
+            <if test="isDone != null  and isDone != ''"> and is_done = #{isDone}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="params.beginUpdateTime != null and params.beginUpdateTime != '' and params.endUpdateTime != null and params.endUpdateTime != ''"> and update_time between #{params.beginUpdateTime} and #{params.endUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectChatById" parameterType="Long" resultMap="ChatResult">
+        <include refid="selectChatVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertChat" parameterType="Chat" useGeneratedKeys="true" keyProperty="id">
+        insert into chat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fromId != null and fromId != ''">from_id,</if>
+            <if test="toId != null and toId != ''">to_id,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="isDone != null and isDone != ''">is_done,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fromId != null and fromId != ''">#{fromId},</if>
+            <if test="toId != null and toId != ''">#{toId},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="isDone != null and isDone != ''">#{isDone},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateChat" parameterType="Chat">
+        update chat
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fromId != null and fromId != ''">from_id = #{fromId},</if>
+            <if test="toId != null and toId != ''">to_id = #{toId},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="isDone != null and isDone != ''">is_done = #{isDone},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChatById" parameterType="Long">
+        delete from chat where id = #{id}
+    </delete>
+
+    <delete id="deleteChatByIds" parameterType="String">
+        delete from chat where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

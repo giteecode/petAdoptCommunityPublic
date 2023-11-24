@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.ApplyMapper">
+    
+    <resultMap type="Apply" id="ApplyResult">
+        <result property="id"    column="id"    />
+        <result property="adoptId"    column="adopt_id"    />
+        <result property="sex"    column="sex"    />
+        <result property="age"    column="age"    />
+        <result property="petExperience"    column="pet_experience"    />
+        <result property="petNow"    column="pet_now"    />
+        <result property="house"    column="house"    />
+        <result property="marriage"    column="marriage"    />
+        <result property="monthlyIncome"    column="monthly_income"    />
+        <result property="work"    column="work"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="phone"    column="phone"    />
+        <result property="wechat"    column="wechat"    />
+        <result property="content"    column="content"    />
+        <result property="openId"    column="open_id"    />
+        <result property="ownerOpenId"    column="owner_open_id"    />
+        <result property="status"    column="status"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectApplyVo">
+        select id, adopt_id, sex, age, pet_experience, pet_now, house, marriage, monthly_income, work, province, city, phone, wechat, content, open_id, owner_open_id, status, is_deleted, create_time, update_time from apply
+    </sql>
+
+    <select id="selectApplyList" parameterType="Apply" resultMap="ApplyResult">
+        <include refid="selectApplyVo"/>
+        <where>  
+            <if test="adoptId != null "> and adopt_id = #{adoptId}</if>
+            <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+            <if test="age != null  and age != ''"> and age = #{age}</if>
+            <if test="petExperience != null  and petExperience != ''"> and pet_experience = #{petExperience}</if>
+            <if test="petNow != null  and petNow != ''"> and pet_now = #{petNow}</if>
+            <if test="house != null  and house != ''"> and house = #{house}</if>
+            <if test="marriage != null  and marriage != ''"> and marriage = #{marriage}</if>
+            <if test="monthlyIncome != null  and monthlyIncome != ''"> and monthly_income = #{monthlyIncome}</if>
+            <if test="work != null  and work != ''"> and work = #{work}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="wechat != null  and wechat != ''"> and wechat = #{wechat}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="openId != null  and openId != ''"> and open_id = #{openId}</if>
+            <if test="ownerOpenId != null  and ownerOpenId != ''"> and owner_open_id = #{ownerOpenId}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+        </where>
+    </select>
+    
+    <select id="selectApplyById" parameterType="Integer" resultMap="ApplyResult">
+        <include refid="selectApplyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertApply" parameterType="Apply" useGeneratedKeys="true" keyProperty="id">
+        insert into apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adoptId != null">adopt_id,</if>
+            <if test="sex != null">sex,</if>
+            <if test="age != null">age,</if>
+            <if test="petExperience != null">pet_experience,</if>
+            <if test="petNow != null">pet_now,</if>
+            <if test="house != null">house,</if>
+            <if test="marriage != null">marriage,</if>
+            <if test="monthlyIncome != null">monthly_income,</if>
+            <if test="work != null">work,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="phone != null">phone,</if>
+            <if test="wechat != null">wechat,</if>
+            <if test="content != null">content,</if>
+            <if test="openId != null and openId != ''">open_id,</if>
+            <if test="ownerOpenId != null and ownerOpenId != ''">owner_open_id,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="adoptId != null">#{adoptId},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="age != null">#{age},</if>
+            <if test="petExperience != null">#{petExperience},</if>
+            <if test="petNow != null">#{petNow},</if>
+            <if test="house != null">#{house},</if>
+            <if test="marriage != null">#{marriage},</if>
+            <if test="monthlyIncome != null">#{monthlyIncome},</if>
+            <if test="work != null">#{work},</if>
+            <if test="province != null">#{province},</if>
+            <if test="city != null">#{city},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="wechat != null">#{wechat},</if>
+            <if test="content != null">#{content},</if>
+            <if test="openId != null and openId != ''">#{openId},</if>
+            <if test="ownerOpenId != null and ownerOpenId != ''">#{ownerOpenId},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateApply" parameterType="Apply">
+        update apply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="adoptId != null">adopt_id = #{adoptId},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="petExperience != null">pet_experience = #{petExperience},</if>
+            <if test="petNow != null">pet_now = #{petNow},</if>
+            <if test="house != null">house = #{house},</if>
+            <if test="marriage != null">marriage = #{marriage},</if>
+            <if test="monthlyIncome != null">monthly_income = #{monthlyIncome},</if>
+            <if test="work != null">work = #{work},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="openId != null and openId != ''">open_id = #{openId},</if>
+            <if test="ownerOpenId != null and ownerOpenId != ''">owner_open_id = #{ownerOpenId},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteApplyById" parameterType="Integer">
+        delete from apply where id = #{id}
+    </delete>
+
+    <delete id="deleteApplyByIds" parameterType="String">
+        delete from apply where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

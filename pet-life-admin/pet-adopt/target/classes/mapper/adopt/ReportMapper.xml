@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.ReportMapper">
+    
+    <resultMap type="Report" id="ReportResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="phone"    column="phone"    />
+        <result property="wechat"    column="wechat"    />
+        <result property="picPrefix"    column="pic_prefix"    />
+        <result property="pictures"    column="pictures"    />
+        <result property="content"    column="content"    />
+        <result property="openId"    column="open_id"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectReportVo">
+        select id, name, phone, wechat, pic_prefix, pictures, content, open_id, is_deleted, create_time, update_time from report
+    </sql>
+
+    <select id="selectReportList" parameterType="Report" resultMap="ReportResult">
+        <include refid="selectReportVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="wechat != null  and wechat != ''"> and wechat = #{wechat}</if>
+            <if test="picPrefix != null  and picPrefix != ''"> and pic_prefix = #{picPrefix}</if>
+            <if test="pictures != null  and pictures != ''"> and pictures = #{pictures}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="openId != null  and openId != ''"> and open_id = #{openId}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectReportById" parameterType="Integer" resultMap="ReportResult">
+        <include refid="selectReportVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertReport" parameterType="Report" useGeneratedKeys="true" keyProperty="id">
+        insert into report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="wechat != null and wechat != ''">wechat,</if>
+            <if test="picPrefix != null">pic_prefix,</if>
+            <if test="pictures != null">pictures,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="openId != null and openId != ''">open_id,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="wechat != null and wechat != ''">#{wechat},</if>
+            <if test="picPrefix != null">#{picPrefix},</if>
+            <if test="pictures != null">#{pictures},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="openId != null and openId != ''">#{openId},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateReport" parameterType="Report">
+        update report
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="wechat != null and wechat != ''">wechat = #{wechat},</if>
+            <if test="picPrefix != null">pic_prefix = #{picPrefix},</if>
+            <if test="pictures != null">pictures = #{pictures},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="openId != null and openId != ''">open_id = #{openId},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReportById" parameterType="Integer">
+        delete from report where id = #{id}
+    </delete>
+
+    <delete id="deleteReportByIds" parameterType="String">
+        delete from report where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

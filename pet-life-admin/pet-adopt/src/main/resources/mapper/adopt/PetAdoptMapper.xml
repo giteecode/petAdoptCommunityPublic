@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.adopt.mapper.PetAdoptMapper">
+    
+    <resultMap type="PetAdopt" id="PetAdoptResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="phone"    column="phone"    />
+        <result property="type"    column="type"    />
+        <result property="picPrefix"    column="pic_prefix"    />
+        <result property="pictures"    column="pictures"    />
+        <result property="sex"    column="sex"    />
+        <result property="physicalCondition"    column="physical_condition"    />
+        <result property="age"    column="age"    />
+        <result property="conditions"    column="conditions"    />
+        <result property="city"    column="city"    />
+        <result property="content"    column="content"    />
+        <result property="openId"    column="open_id"    />
+        <result property="isFinish"    column="is_finish"    />
+        <result property="view"    column="view"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPetAdoptVo">
+        select id, title, nickname, phone, type, pic_prefix, pictures, sex, physical_condition, age, conditions, city, content, open_id, is_finish, view, is_deleted, create_time, update_time from pet_adopt
+    </sql>
+
+    <select id="selectPetAdoptList" parameterType="PetAdopt" resultMap="PetAdoptResult">
+        <include refid="selectPetAdoptVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+            <if test="physicalCondition != null  and physicalCondition != ''"> and physical_condition = #{physicalCondition}</if>
+            <if test="age != null  and age != ''"> and age = #{age}</if>
+            <if test="conditions != null  and conditions != ''"> and conditions like concat('%', #{conditions}, '%')</if>
+            <if test="city != null  and city != ''"> and city like concat('%', #{city}, '%')</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="openId != null  and openId != ''"> and open_id = #{openId}</if>
+            <if test="isFinish != null  and isFinish != ''"> and is_finish = #{isFinish}</if>
+            <if test="view != null "> and view = #{view}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="params.beginUpdateTime != null and params.beginUpdateTime != '' and params.endUpdateTime != null and params.endUpdateTime != ''"> and update_time between #{params.beginUpdateTime} and #{params.endUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectPetAdoptById" parameterType="Integer" resultMap="PetAdoptResult">
+        <include refid="selectPetAdoptVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPetAdopt" parameterType="PetAdopt" useGeneratedKeys="true" keyProperty="id">
+        insert into pet_adopt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">title,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="picPrefix != null">pic_prefix,</if>
+            <if test="pictures != null">pictures,</if>
+            <if test="sex != null">sex,</if>
+            <if test="physicalCondition != null">physical_condition,</if>
+            <if test="age != null and age != ''">age,</if>
+            <if test="conditions != null and conditions != ''">conditions,</if>
+            <if test="city != null and city != ''">city,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="openId != null and openId != ''">open_id,</if>
+            <if test="isFinish != null and isFinish != ''">is_finish,</if>
+            <if test="view != null">view,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="picPrefix != null">#{picPrefix},</if>
+            <if test="pictures != null">#{pictures},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="physicalCondition != null">#{physicalCondition},</if>
+            <if test="age != null and age != ''">#{age},</if>
+            <if test="conditions != null and conditions != ''">#{conditions},</if>
+            <if test="city != null and city != ''">#{city},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="openId != null and openId != ''">#{openId},</if>
+            <if test="isFinish != null and isFinish != ''">#{isFinish},</if>
+            <if test="view != null">#{view},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePetAdopt" parameterType="PetAdopt">
+        update pet_adopt
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="picPrefix != null">pic_prefix = #{picPrefix},</if>
+            <if test="pictures != null">pictures = #{pictures},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="physicalCondition != null">physical_condition = #{physicalCondition},</if>
+            <if test="age != null and age != ''">age = #{age},</if>
+            <if test="conditions != null and conditions != ''">conditions = #{conditions},</if>
+            <if test="city != null and city != ''">city = #{city},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="openId != null and openId != ''">open_id = #{openId},</if>
+            <if test="isFinish != null and isFinish != ''">is_finish = #{isFinish},</if>
+            <if test="view != null">view = #{view},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePetAdoptById" parameterType="Integer">
+        delete from pet_adopt where id = #{id}
+    </delete>
+
+    <delete id="deletePetAdoptByIds" parameterType="String">
+        delete from pet_adopt where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
